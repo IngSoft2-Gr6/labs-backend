@@ -12,29 +12,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class RoleController{
+public class RoleController {
 
     private final RoleService roleService;
     private final UserService userService;
 
-
-    public RoleController( RoleService roleService, UserService userService ){
+    public RoleController(RoleService roleService, UserService userService) {
         this.roleService = roleService;
         this.userService = userService;
     }
 
-    @GetMapping( "/mis-roles" )
-    public List<RolePOJO> getUserRoles( ){
-        String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName( );
-        List<RolePOJO> roles = new ArrayList<>( );
-        for( Role role : userService.findByUsername( username ).getRoles( ) ){
-            roles.add( new RolePOJO( role ) );
+    @GetMapping("/mis-roles")
+    public List<RolePOJO> getUserRoles() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<RolePOJO> roles = new ArrayList<>();
+        for (Role role : userService.findByUsername(username).getRoles()) {
+            roles.add(new RolePOJO(role));
         }
         return roles;
     }
 
-    @GetMapping( value = { "/roles" } )
-    public List<Role> getAllRoles( ){
-        return roleService.getAll( );
+    @GetMapping(value = { "/roles" })
+    public List<RolePOJO> getAllRoles() {
+        return roleService.getAll();
     }
 }
